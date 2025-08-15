@@ -1,0 +1,5 @@
+fhir:
+  server-url: http://localhost:8081/fhir
+
+server:
+    port: 8085
