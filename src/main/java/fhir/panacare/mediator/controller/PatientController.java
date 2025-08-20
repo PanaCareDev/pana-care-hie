@@ -2,6 +2,7 @@ package fhir.panacare.mediator.controller;
 
 import fhir.panacare.mediator.model.PanaPatient;
 import fhir.panacare.mediator.service.PatientService;
+import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.IdType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +19,8 @@ public class PatientController {
 
     @PostMapping("/post")
     public String convertPatient(@RequestBody PanaPatient patient){
-        var outcome = service.convertPatient(patient);
-        IdType id = (IdType) outcome.getId();
-        return "FHIR Patient Created with ID: " + id.getIdPart();
+        Bundle outcomeBundle = service.convertPatient(patient);
+        return "FHIR Bundle Created with " + outcomeBundle.getEntry().size() + " resources.";
     }
 
 }
