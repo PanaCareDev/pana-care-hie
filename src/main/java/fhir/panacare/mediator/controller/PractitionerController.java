@@ -15,7 +15,7 @@ public class PractitionerController {
     @Autowired
     PractitionerService service;
 
-    @PostMapping("/post")
+    @PostMapping("/create")
     public String convertPractioner(@RequestBody fhir.panacare.mediator.model.Practitioner practitioner){
         MethodOutcome outcome = service.createPractitioner(practitioner);
 

@@ -17,7 +17,7 @@ public class PatientController {
     @Autowired
     private PatientService service;
 
-    @PostMapping("/post")
+    @PostMapping("/create")
     public String convertPatient(@RequestBody PanaPatient patient){
         Bundle outcomeBundle = service.convertPatient(patient);
         return "FHIR Bundle Created with " + outcomeBundle.getEntry().size() + " resources.";
