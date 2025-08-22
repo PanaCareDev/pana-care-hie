@@ -1,9 +1,8 @@
 package fhir.panacare.mediator.service;
 
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.rest.api.MethodOutcome;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
-import fhir.panacare.mediator.config.FhirProperties;
+import fhir.panacare.mediator.helpers.FHIRClientProvider;
 import fhir.panacare.mediator.model.PanaPatient;
 import org.hl7.fhir.r4.model.*;
 import org.springframework.stereotype.Service;
@@ -16,14 +15,9 @@ public class PatientService {
     private final FhirContext fhirContext = FhirContext.forR4();
     private final IGenericClient client;
 
-    public PatientService(FhirProperties fhirProperties) {
-        String serverUrl = fhirProperties.getServerUrl();
-        if (serverUrl == null || serverUrl.isEmpty()) {
-            throw new IllegalArgumentException("FHIR server URL must not be null or empty");
-        }
-        this.client = fhirContext.newRestfulGenericClient(serverUrl);
+    public PatientService(FHIRClientProvider fhirClientProvider) {
+        this.client = fhirClientProvider.getClient();
     }
-
     public Bundle convertPatient(PanaPatient nonFhir) {
 
         // Create Patient
